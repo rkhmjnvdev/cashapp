@@ -1,0 +1,9 @@
+# Игнорируем секреты бэкенда
+backend/.env
+backend/venv/
+backend/__pycache__/
+backend/db.sqlite3
+
+# Игнорируем тяжелые папки фронтенда
+frontend/node_modules/
+frontend/dist/
