@@ -46,16 +46,19 @@ function App() {
     const total = debts
       .filter(d => d.currency === currency)
       .reduce((sum, current) => sum + Number(current.amount), 0);
-    return Number(total); // Убирает .00 для итоговых сумм
+    return Number(total); 
   };
-const formatDate = (dateString) => {
-  if (!dateString) return "";
-  const [year, month, day] = dateString.split('-');
-  return `${day}.${month}.${year}`;
-};
+
+  const formatDate = (dateString) => {
+    if (!dateString) return "";
+    const [year, month, day] = dateString.split('-');
+    return `${day}.${month}.${year}`;
+  };
+
   const fetchAllData = async () => {
     try {
-      const response = await fetch('https://cashapp-smzh.onrender.com');
+      // Путь /api/all/ для получения всех данных
+      const response = await fetch(`${API_URL}/api/all/`);
       if (response.ok) {
         const data = await response.json();
         setAllDebtors(data);
@@ -73,7 +76,7 @@ const formatDate = (dateString) => {
     if (!searchTerm) return;
     setLoading(true);
     try {
-      const response = await fetch(`http://127.0.0.1:8000/api/search/?name=${searchTerm}`);
+      const response = await fetch(`${API_URL}/api/search/?name=${searchTerm}`);
       const data = await response.json();
       if (data.length > 0) {
         setSearchResult(data[0]);
@@ -94,18 +97,20 @@ const formatDate = (dateString) => {
       return;
     }
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/add-debt/', {
+      const response = await fetch(`${API_URL}/api/add-debt/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
       if (response.ok) {
-        alert("Успешно!");
+        alert("Успешно записано в базу!");
         setFormData({ name: '', reason: '', amount: '', currency: 'UZS', date: '' }); 
         fetchAllData(); 
         if (searchTerm && formData.name.toLowerCase().includes(searchTerm.toLowerCase())) {
           handleSearch();
         }
+      } else {
+        alert("Ошибка при сохранении");
       }
     } catch (error) {
       console.error("Ошибка запроса:", error);
@@ -152,7 +157,7 @@ const formatDate = (dateString) => {
       </header>
 
       <div className="container-fluid py-5 content-container">
-        {/* ДОБАВЛЕНИЕ */}
+        {/* ФОРМА ДОБАВЛЕНИЯ */}
         <div className="card shadow-sm border-success mb-5 mx-auto" style={{maxWidth: '1000px'}}>
           <div className="card-header bg-success text-white fw-bold">Новая запись</div>
           <div className="card-body p-4">
@@ -214,30 +219,29 @@ const formatDate = (dateString) => {
                   <span className="fw-bold text-dark">{formatDate(d.date)}</span>
                   <div className="small text-muted">{d.reason || "Без причины"}</div>
                 </div>
-                {/* ИСПРАВЛЕНО ТУТ: Добавлен Number() */}
                 <span className="fw-bold text-primary">{Number(d.amount)} {d.currency}</span>
               </div>
             ))}
           </div>
         )}
 
-        {/* ТАБЛИЦА */}
+        {/* ОСНОВНАЯ ТАБЛИЦА */}
         <div className="debt-table-container mx-auto" style={{maxWidth: '1100px'}}>
           <h3 className="debt-table-title text-center mb-4">Общий список в базе</h3>
           <div className="debt-table-wrapper shadow-sm rounded bg-white">
             <table className="debt-table w-100">
-<thead>
-  <tr>
-    <th style={{width: '33%'}}>Имя должника</th>
-    <th style={{width: '67%'}}>
-      <div className="d-flex justify-content-between px-3">
-        <span>Дата</span>
-        <span>Причина</span>
-        <span className="pe-4">Сумма</span>
-      </div>
-    </th>
-  </tr>
-</thead>
+              <thead>
+                <tr>
+                  <th style={{width: '33%'}}>Имя должника</th>
+                  <th style={{width: '67%'}}>
+                    <div className="d-flex justify-content-between px-3">
+                      <span>Дата</span>
+                      <span>Причина</span>
+                      <span className="pe-4">Сумма</span>
+                    </div>
+                  </th>
+                </tr>
+              </thead>
               <tbody>
                 {allDebtors.map((person) => (
                   <tr key={person.id}>
@@ -267,7 +271,6 @@ const formatDate = (dateString) => {
                           <div key={idx} className="debt-item d-flex justify-content-between align-items-center border-bottom py-1 px-2">
                             <span className="debt-date small">{formatDate(d.date)}</span>
                             <span className="small text-muted text-truncate mx-2" style={{maxWidth: '200px'}}>{d.reason}</span>
-                            {/* ИСПРАВЛЕНО ТУТ: Добавлен Number() */}
                             <span className="debt-amount fw-bold">{Number(d.amount)} {d.currency}</span>
                           </div>
                         ))}
@@ -285,7 +288,7 @@ const formatDate = (dateString) => {
         <div className="footer-content text-center py-4">
           <div className="social-links mb-3">
             <a href="https://t.me/rakhimjanov07" target="_blank" rel="noreferrer" className="social-icon mx-3"><i className="fab fa-telegram-plane"></i></a>
-            <a href="https://github.com/rkhmjnv_dev" target="_blank" rel="noreferrer" className="social-icon mx-3"><i className="fab fa-github"></i></a>
+            <a href="https://github.com/rkhmjnvdev" target="_blank" rel="noreferrer" className="social-icon mx-3"><i className="fab fa-github"></i></a>
             <a href="https://instagram.com/rakhimjanovv07" target="_blank" rel="noreferrer" className="social-icon mx-3"><i className="fab fa-instagram"></i></a>
           </div>
           <p className="made-by">Made by Jakhongir</p>
