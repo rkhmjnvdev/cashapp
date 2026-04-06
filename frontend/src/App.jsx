@@ -1,3 +1,4 @@
+const API_URL = "https://cashapp-smzh.onrender.com";
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
@@ -54,7 +55,7 @@ const formatDate = (dateString) => {
 };
   const fetchAllData = async () => {
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/all/');
+      const response = await fetch('https://cashapp-smzh.onrender.com');
       if (response.ok) {
         const data = await response.json();
         setAllDebtors(data);
