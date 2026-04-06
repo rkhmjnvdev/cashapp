@@ -30,7 +30,7 @@ SECRET_KEY = 'django-insecure-&b1ocsc_c%%v0u8=_2kul7-dra2_3-a%%7_dt#f7rms*&+v-&h
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -142,3 +142,4 @@ CORS_ALLOW_METHODS = [
     "POST",
     "PUT",
 ]
+CSRF_TRUSTED_ORIGINS = ['https://*.railway.app']

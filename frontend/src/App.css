@@ -2,39 +2,44 @@
 :root {
   --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   --success-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-  --dark-bg: #0f1419;
+  --dark-bg: #eee;
   --card-bg: #1a1f2e;
   --text-primary: #ffffff;
   --text-secondary: #a0aec0;
-  --border-color: #2d3748;
+
   --accent-blue: #667eea;
   --accent-pink: #f5576c;
 }
 
 * {
-  margin: 0;
-  padding: 0;
+  margin: 0 ;
+  padding: 0 ;
   box-sizing: border-box;
+  scroll-behavior: smooth;
   font-family: 'Montserrat', sans-serif;
 }
 
 body {
-  background: linear-gradient(135deg, #0f1419 0%, #1a1f2e 100%);
+  background: #F8FAFC;
   color: var(--text-primary);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   min-height: 100vh;
+  overflow-x: hidden;
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 /* ==================== CONTAINER ==================== */
 .container {
   background: var(--dark-bg);
   border-radius: 20px;
-  backdrop-filter: blur(10px);
+  /* backdrop-filter: blur(10px); */
   padding: 3rem 2rem !important;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  max-width: 900px !important;
   margin-top: 2rem !important;
+  width: 1200px;
+  padding-left: 50px;
+  padding-right: 50px;
 }
 
 /* ==================== HEADER TITLE ==================== */
@@ -51,6 +56,11 @@ h2 {
   animation: fadeInDown 0.8s ease-out;
 }
 
+.text-truncate {
+  overflow: visible !important;
+  white-space: normal !important;
+  text-overflow: clip !important;
+}
 h3 {
   color: var(--text-primary);
   font-weight: 700;
@@ -60,24 +70,18 @@ h3 {
 
 /* ==================== CARDS ==================== */
 .card {
-  background: rgba(26, 31, 46, 0.8) !important;
-  border: 1px solid rgba(102, 126, 234, 0.3) !important;
+  background:  transparent !important;
   border-radius: 16px !important;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3) !important;
+  /* backdrop-filter: blur(10px); */
+  border: none !important;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
 }
 
-.card:hover {
-  border-color: rgba(102, 126, 234, 0.6) !important;
-  box-shadow: 0 15px 50px rgba(102, 126, 234, 0.2) !important;
-  transform: translateY(-5px);
-}
 
 .card-header {
-  background: var(--primary-gradient) !important;
-  border-bottom: none !important;
+  background:  linear-gradient(to bottom right, #4ade80, #10b981) !important;
+  border: none !important;
   font-weight: 700 !important;
   letter-spacing: 0.5px;
   padding: 1.25rem !important;
@@ -86,6 +90,7 @@ h3 {
 
 .card-body {
   padding: 2rem !important;
+  border:none;
 }
 
 /* ==================== FORMS ==================== */
@@ -100,9 +105,8 @@ h3 {
 
 .form-control,
 .form-select {
-  background: rgba(45, 55, 72, 0.5) !important;
+  background:  transparent !important;
   border: 1.5px solid rgba(102, 126, 234, 0.2) !important;
-  color: var(--text-primary) !important;
   border-radius: 10px !important;
   padding: 0.75rem 1rem !important;
   font-size: 0.95rem;
@@ -111,14 +115,15 @@ h3 {
 
 .form-control:focus,
 .form-select:focus {
-  background: rgba(45, 55, 72, 0.8) !important;
+  background:  linear-gradient(to bottom right, #4ade80, #10b981) !important;
+  opacity: 50%;
   border-color: var(--accent-blue) !important;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1) !important;
   color: var(--text-primary) !important;
+  transition: all ease 0.3s ease;
 }
 
 .form-control::placeholder {
-  color: var(--text-secondary);
+  color: grey;
 }
 
 /* ==================== BUTTONS ==================== */
@@ -152,25 +157,18 @@ h3 {
 }
 
 .btn-success {
-  background: var(--success-gradient) !important;
+  background:  linear-gradient(to bottom right, #4ade80, #10b981) !important;
   color: white !important;
-  box-shadow: 0 8px 20px rgba(245, 87, 108, 0.3);
 }
 
-.btn-success:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 30px rgba(245, 87, 108, 0.4);
-}
 
 .btn-primary {
-  background: var(--primary-gradient) !important;
+  background:  linear-gradient(to bottom right, #4ade80, #10b981)!important;
   color: white !important;
-  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+
 }
 
 .btn-primary:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 30px rgba(102, 126, 234, 0.4);
   border-color: transparent !important;
 }
 
@@ -178,7 +176,7 @@ h3 {
 .input-group {
   border-radius: 12px !important;
   overflow: hidden;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
+
 }
 
 .input-group .form-control {
@@ -194,7 +192,7 @@ h3 {
   border-radius: 12px !important;
   border: 1.5px solid !important;
   background: rgba(26, 31, 46, 0.8) !important;
-  backdrop-filter: blur(10px);
+  /* backdrop-filter: blur(10px); */
   animation: slideInUp 0.5s ease-out;
 }
 
@@ -222,7 +220,7 @@ h3 {
 }
 
 .table-dark {
-  background: linear-gradient(135deg, rgba(102, 126, 234, 0.3), rgba(245, 87, 108, 0.2));
+  background: linear-gradient(to bottom right, #4ade80, #10b981);
   border-bottom: 2px solid rgba(102, 126, 234, 0.5);
 }
 
@@ -242,7 +240,6 @@ h3 {
 .table-hover tbody tr:hover {
   background: rgba(102, 126, 234, 0.1) !important;
   transform: scale(1.01);
-  box-shadow: inset 0 0 20px rgba(102, 126, 234, 0.1);
 }
 
 .table td {
@@ -262,7 +259,7 @@ h3 {
 }
 
 .text-muted {
-  color: var(--text-secondary) !important;
+  color: #333333 !important;
 }
 
 .text-dark {
@@ -286,31 +283,27 @@ hr {
 @keyframes fadeInDown {
   from {
     opacity: 0;
-    transform: translateY(-30px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
   }
 }
 
 @keyframes slideInUp {
   from {
     opacity: 0;
-    transform: translateY(30px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
   }
 }
 
 @keyframes pulse-glow {
   0%, 100% {
-    box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
+    
   }
   50% {
-    box-shadow: 0 0 40px rgba(102, 126, 234, 0.6);
+    
   }
 }
 
@@ -327,10 +320,6 @@ hr {
   border-radius: 12px !important;
 }
 
-.border-success {
-  border-color: var(--accent-pink) !important;
-}
-
 .border-primary {
   border-color: var(--accent-blue) !important;
 }
@@ -339,63 +328,9 @@ hr {
   border-bottom-color: var(--border-color) !important;
 }
 
-/* ==================== RESPONSIVE ==================== */
-@media (max-width: 768px) {
-  .container {
-    padding: 1.5rem 1rem !important;
-  }
-
-  h2 {
-    font-size: 2rem !important;
-  }
-
-  .card-body {
-    padding: 1.5rem !important;
-  }
-
-  .btn {
-    padding: 0.6rem 1.2rem !important;
-  }
-
-  .table {
-    font-size: 0.9rem;
-  }
-
-  .table th,
-  .table td {
-    padding: 0.75rem !important;
-  }
-}
-
-@media (max-width: 480px) {
-  .container {
-    border-radius: 12px;
-  }
-
-  h2 {
-    font-size: 1.75rem !important;
-  }
-
-  .card {
-    border-radius: 12px !important;
-  }
-
-  .input-group {
-    flex-direction: column;
-  }
-
-  .input-group .form-control {
-    border-radius: 12px 12px 0 0 !important;
-  }
-
-  .input-group .btn {
-    border-radius: 0 0 12px 12px !important;
-    width: 100%;
-  }
-}
-/* Debt Table Container */
+/* ==================== DEBT TABLE STYLES ==================== */
 .debt-table-container {
-  width: 100%;
+  width: 80%;
 }
 
 .debt-table-header {
@@ -405,11 +340,10 @@ hr {
 .debt-table-title {
   font-size: 1.25rem;
   font-weight: 600;
-  color: #1f2937;
+  color: #A3B0C2;
   margin-bottom: 1rem;
 }
 
-/* Table Wrapper */
 .debt-table-wrapper {
   overflow: hidden;
   border-radius: 1rem;
@@ -417,16 +351,22 @@ hr {
   border: 1px solid #dcfce7;
 }
 
-/* Table */
 .debt-table {
   width: 100%;
   border-collapse: collapse;
 }
 
-/* Table Head */
 .debt-table thead tr {
   background: linear-gradient(to right, #4ade80, #10b981);
   color: white;
+}
+
+.debt-table thead th:first-child {
+  width: 30% !important; /* Fixed from 33% to prevent overflow */
+}
+
+.debt-table thead th:last-child {
+  width: 70% !important;
 }
 
 .debt-table thead th {
@@ -437,7 +377,6 @@ hr {
   letter-spacing: 0.5px;
 }
 
-/* Table Body */
 .debt-table tbody {
   border-top: 1px solid #dcfce7;
 }
@@ -457,15 +396,12 @@ hr {
 
 .debt-table tbody tr:hover {
   background-color: #eee;
-  
 }
 
-/* Table Cells */
 .debt-table td {
   padding: 1.25rem 1.5rem;
 }
 
-/* Debtor Name Cell */
 .debtor-cell {
   display: flex;
   align-items: center;
@@ -487,11 +423,11 @@ hr {
 }
 
 .debtor-name {
-  font-weight: 600;
+  font-weight: 750;
+  font-size: 20px;
   color: #1f2937;
 }
 
-/* Debts List */
 .debts-list {
   display: flex;
   flex-direction: column;
@@ -502,34 +438,28 @@ hr {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: linear-gradient(to right, #fef3c7, #fee2e2);
+  background: linear-gradient(to bottom right, #F8FAFC, #eee);
   padding: 0.75rem 1rem;
   border-radius: 0.5rem;
-  border: 1px solid #fed7aa;
+  border: 1px solid #10b981;
   transition: all 0.2s ease;
 }
 
-.debt-item:hover {
-  background: linear-gradient(to right, #fde68a, #fecaca);
-  border-color: #fb923c;
-}
-
 .debt-date {
-  font-size: 0.875rem;
-  color: #4b5563;
+  font-size: 19px;
+  color: #333333;
 }
 
 .debt-amount {
-  font-weight: 700;
-  font-size: 1.125rem;
-  background: linear-gradient(to right, #f97316, #ef4444);
+  font-weight: 800;
+  font-size: 20px;
+  background: linear-gradient(to right, grey, #333333);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   letter-spacing: -0.5px;
 }
 
-/* Empty State */
 .empty-state {
   padding: 3rem 1.5rem;
   text-align: center;
@@ -566,15 +496,450 @@ hr {
   color: #9ca3af;
 }
 
-/* Responsive Design */
+/* ==================== APP WRAPPER & NAVBAR ==================== */
+.app-wrapper {
+  background-color: #f8f9fa;
+  min-height: 100vh;
+}
+
+.cash-table-text {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 150px;
+}
+
+.cash-table-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  border-bottom: 1px solid #eee;
+} 
+
+.custom-navbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px 50px;
+  background: linear-gradient(to bottom right, #4ade80, #10b981) !important; /* Fixed invalid background-color */
+  /* backdrop-filter: blur(10px); */
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  color: white;
+  width: 100vw;
+}
+
+.nav-center { 
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  width: 100%; 
+  background: linear-gradient(to bottom right, #4ade80, #10b981);
+}
+
+.cashapp-logo {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: 55px;
+  margin: 0;
+  color: white;
+  padding: 20px 0px;
+}
+
+.head-logo {
+  width: 100px;
+  height: auto;
+  padding-bottom: 10px;
+  z-index: 1001;
+  position: absolute;
+  margin-right: 330px;
+  margin-top: -10px;
+}
+
+.uzs-sc:focus {
+  color: #333333;
+}
+
+.usd-sc:focus {
+  color: #333333;
+}
+
+
+/* ==================== MOBILE RESPONSIVE QUERIES ==================== */
+
+@media (max-width: 1200px) {
+  .container {
+    width: 95% !important;
+    max-width: 1200px;
+  }
+
+  .debt-table-container {
+    width: 95% !important;
+  }
+}
+
+@media (max-width: 992px) {
+  .container {
+    width: 95% !important;
+    padding: 2rem 1.5rem !important;
+    padding-left: 1.5rem !important;
+    padding-right: 1.5rem !important;
+  }
+
+  .debt-table-container {
+    width: 95% !important;
+  }
+}
+
 @media (max-width: 768px) {
-  .debt-table thead th {
-    padding: 0.75rem 1rem;
-    font-size: 0.75rem;
+  .container {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 1.5rem 1rem !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    margin-top: 1rem !important;
+    border-radius: 0 !important;
+  }
+
+  .custom-navbar {
+    padding: 10px 20px !important;
+  }
+
+ 
+  .head-logo {
+    width: 85px;
+    margin-right: 165px;
+    margin-top: -10px;
+  }
+
+  .content-container {
+    padding: 1rem 0.5rem !important;
+  }
+
+  .card-body {
+    padding: 1.25rem !important;
+  }
+
+  .card .row > [class*="col-md"] {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: 0 0 100% !important;
+  }
+
+  .card .row > [class*="col-md"].mt-3 {
+    margin-top: 0.5rem !important;
+  }
+
+  .btn {
+    padding: 0.7rem 1.2rem !important;
+    font-size: 0.9rem !important;
+  }
+
+  .btn.px-5 {
+    padding-left: 1.5rem !important;
+    padding-right: 1.5rem !important;
+    width: 100%;
+  }
+
+  .row.mb-5 > [class*="col-md"] {
+    max-width: 100% !important;
+    flex: 0 0 100% !important;
+    padding: 0 !important;
+  }
+
+  .alert {
+    margin-left: 0.5rem !important;
+    margin-right: 0.5rem !important;
+  }
+
+  .alert-info,
+  .alert-warning {
+    max-width: 100% !important;
+  }
+
+  .alert-info .d-flex {
+    flex-wrap: wrap;
+    gap: 0.25rem 0.75rem;
+  }
+
+  .alert-info .d-flex .small {
+    width: 100%;
+    order: 3;
+  }
+
+  .debt-table-container {
+    width: 100% !important;
+  }
+
+  .debt-table-wrapper {
+    border-radius: 0.75rem;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .debt-table {
+    min-width: 620px;
+  }
+
+  .cash-table-text {
+    margin-left: 0 !important;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  h2 {
+    font-size: 1.75rem !important;
+    margin-bottom: 1.5rem !important;
+  }
+
+  h3 {
+    font-size: 1.25rem !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .debt-table-title {
+    font-size: 1.1rem;
+  }
+
+  hr {
+    margin: 1.5rem 0 !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .custom-navbar {
+    padding: 8px 12px !important;
+  }
+
+  .cashapp-logo {
+    font-size: 26px !important;
+    padding: 10px 0 !important;
+  }
+
+  .head-logo {
+    width: 65px;
+    margin-right: 125px;
+    margin-top: -8px;
+  }
+
+  .container {
+    padding: 1rem 0.75rem !important;
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+    margin-top: 0.5rem !important;
+  }
+
+  .content-container {
+    padding: 0.75rem 0 !important;
+  }
+
+  .card-body {
+    padding: 1rem !important;
+  }
+
+  .card-header {
+    padding: 0.75rem 1rem !important;
+    font-size: 0.9rem !important;
+  }
+
+  .form-label {
+    font-size: 0.7rem !important;
+    margin-bottom: 0.35rem !important;
+  }
+
+  .form-control,
+  .form-select {
+    padding: 0.6rem 0.75rem !important;
+    font-size: 16px !important; /* Prevents iOS auto-zoom */
+    border-radius: 8px !important;
+  }
+
+  .btn {
+    padding: 0.65rem 1rem !important;
+    font-size: 0.85rem !important;
+    border-radius: 8px !important;
+  }
+
+  .input-group {
+    flex-direction: column !important;
+    border-radius: 10px !important;
+  }
+
+  .input-group .form-control {
+    border-radius: 10px 10px 0 0 !important;
+    border-bottom-color: transparent !important;
+  }
+
+  .input-group .btn {
+    border-radius: 0 0 10px 10px !important;
+    width: 100%;
+  }
+
+  /* Convert table to card layout on small mobile */
+  .debt-table thead {
+    display: none;
+  }
+
+  .debt-table,
+  .debt-table tbody,
+  .debt-table tr,
+  .debt-table td {
+    display: block;
+    width: 100% !important;
+  }
+
+  .debt-table tbody tr {
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+    border-radius: 0.75rem;
+    background: #ffffff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.07);
+    border: 1px solid #dcfce7;
+  }
+
+  .debt-table tbody tr:active {
+    transform: scale(0.98);
   }
 
   .debt-table td {
-    padding: 0.75rem 1rem;
+    padding: 0 !important;
+  }
+
+  .debt-table td:first-child {
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.75rem !important;
+    border-bottom: 1px solid #f0f0f0 !important;
+  }
+
+  .debtor-cell {
+    gap: 0.6rem;
+  }
+
+  .debtor-avatar {
+    width: 2.25rem;
+    height: 2.25rem;
+    font-size: 0.8rem;
+  }
+
+  .debtor-name {
+    font-size: 1rem !important;
+  }
+
+  .debts-list {
+    gap: 0.4rem;
+  }
+
+  .debt-item {
+    padding: 0.6rem 0.75rem;
+    border-radius: 0.5rem;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.2rem 0;
+  }
+
+  .debt-date {
+    font-size: 0.8rem !important;
+    color: #6b7280;
+  }
+
+  .debt-item .small.text-muted {
+    max-width: 100% !important;
+    width: 100%;
+    font-size: 0.78rem !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .debt-amount {
+    font-size: 0.95rem !important;
+    align-self: flex-end !important;
+  }
+
+  .debt-table-wrapper {
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+    overflow: visible !important;
+  }
+
+  .empty-state {
+    padding: 2rem 1rem;
+  }
+
+  .cash-table-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+    padding: 10px 12px;
+  }
+
+  h2 {
+    font-size: 1.5rem !important;
+    margin-bottom: 1rem !important;
+  }
+
+  h3 {
+    font-size: 1.1rem !important;
+  }
+
+  .debt-table-title {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .cashapp-logo {
+    font-size: 22px !important;
+    padding: 8px 0 !important;
+  }
+
+  .head-logo {
+    width: 50px;
+    margin-right: 100px;
+    margin-top: -5px;
+  }
+
+  .container {
+    padding: 0.75rem 0.5rem !important;
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+  }
+
+  .card-body {
+    padding: 0.875rem !important;
+  }
+
+  .card-header {
+    padding: 0.6rem 0.75rem !important;
+    font-size: 0.85rem !important;
+  }
+
+  .form-label {
+    font-size: 0.65rem !important;
+  }
+
+  .form-control,
+  .form-select {
+    padding: 0.5rem 0.6rem !important;
+    font-size: 16px !important;
+  }
+
+  .btn {
+    font-size: 0.8rem !important;
+    padding: 0.55rem 0.85rem !important;
+  }
+
+  .debt-table tbody tr {
+    padding: 0.75rem;
+    margin-bottom: 0.5rem;
+    border-radius: 0.6rem;
+  }
+
+  .debtor-name {
+    font-size: 0.95rem !important;
   }
 
   .debtor-avatar {
@@ -584,12 +949,250 @@ hr {
   }
 
   .debt-item {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
+    padding: 0.5rem 0.6rem;
+  }
+
+  .debt-date {
+    font-size: 0.75rem !important;
   }
 
   .debt-amount {
+    font-size: 0.85rem !important;
+  }
+
+  h2 {
+    font-size: 1.3rem !important;
+  }
+}
+
+/* ==================== TOUCH DEVICE OPTIMIZATIONS ==================== */
+@media (hover: none) and (pointer: coarse) {
+  .btn {
+    min-height: 44px;
+  }
+
+  .form-control,
+  .form-select {
+    min-height: 44px;
+  }
+
+  .debt-item {
+    min-height: 44px;
+  }
+
+  /* Remove hover effects on touch devices */
+  .card:hover {
+    transform: none;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3) !important;
+  }
+
+  .btn-success:hover,
+  .btn-primary:hover {
+    transform: none;
+  }
+
+  .table-hover tbody tr:hover {
+    transform: none;
+    box-shadow: none;
+  }
+
+  /* Use active state instead */
+  .card:active {
+    transform: scale(0.98);
+  }
+
+  .btn:active {
+    transform: scale(0.96);
+  }
+}
+
+/* ==================== SAFE AREA (Notched Phones) ==================== */
+@supports (padding: env(safe-area-inset-top)) {
+  .custom-navbar {
+    padding-top: calc(15px + env(safe-area-inset-top)) !important;
+    padding-bottom: calc(15px + env(safe-area-inset-bottom)) !important;
+    padding-left: calc(20px + env(safe-area-inset-left)) !important;
+    padding-right: calc(20px + env(safe-area-inset-right)) !important;
+  }
+}
+
+/* ==================== LANDSCAPE PHONE ==================== */
+@media (max-height: 500px) and (orientation: landscape) {
+  .custom-navbar {
+    padding: 6px 20px !important;
+  }
+
+  .cashapp-logo {
+    font-size: 22px !important;
+    padding: 6px 0 !important;
+  }
+
+  .head-logo {
+    width: 50px;
+    margin-right: 120px;
+    margin-top: -4px;
+  }
+
+  .container {
+    margin-top: 0.25rem !important;
+    padding: 0.75rem 1rem !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  .content-container {
+    padding: 0.5rem 0 !important;
+  }
+
+  .card-body {
+    padding: 0.75rem !important;
+  }
+
+  .form-control,
+  .form-select {
+    padding: 0.4rem 0.6rem !important;
+    min-height: 38px;
+  }
+
+  .btn {
+    padding: 0.4rem 0.8rem !important;
+    min-height: 38px;
+    font-size: 0.8rem !important;
+  }
+}
+
+/* ==================== REDUCED MOTION ==================== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .btn::before {
+    display: none;
+  }
+}
+/* ==================== FOOTER STYLES ==================== */
+.footer {
+  background: linear-gradient(to bottom right, #4ade80, #10b981);
+  padding-top: 30px;
+  border-top: 1px solid #e2e8f0;
+  text-align: center;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+}
+
+.made-by {
+  font-size: 1rem;
+  font-weight: 150;
+  color: white;
+  margin-top: 30px;
+}
+
+.made-by span {
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 800;
+}
+
+.social-links {
+  display: flex;
+  gap: 30px;
+  
+}
+
+.social-icon {
+  font-size: 1.8rem;
+  color: #9ca3af;
+  transition: transform 0.2s ease, color 0.2s ease;
+  text-decoration: none;
+}
+
+/* Цвета при наведении */
+.social-icon:hover {
+  transform: translateY(-3px);
+}
+
+.telegram:hover { color: #0088cc; }
+.github:hover { color: #333; }
+.instagram:hover { color: #e1306c; }
+
+.copyright {
+  font-size: 0.85rem;
+  color: #9ca3af;
+  margin-top: 1rem;
+}
+
+/* Адаптивность для мобилок */
+@media (max-width: 576px) {
+  .footer {
+    padding: 2rem 1rem;
+  }
+  .social-icon {
+    font-size: 1.5rem;
+  }
+}
+/* ==================== СТИЛЬ КНОПКИ ВЫХОДА (ИКОНКА) ==================== */
+.logout-icon-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.logout-icon-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.05);
+  color: #ff4d4d; /* Красный оттенок при наведении на выход */
+}
+
+.logout-icon-btn:active {
+  transform: scale(0.95);
+}
+
+/* ==================== АДАПТАЦИЯ (MOBILE) ==================== */
+@media (max-width: 576px) {
+  .custom-navbar {
+    padding: 0.5rem 1rem !important;
+  }
+
+  .cashapp-logo {
+    font-size: 1.4rem !important; /* Уменьшаем текст на мобилках */
+  }
+
+  .head-logo {
+    width: 30px !important; /* Уменьшаем логотип */
+    height: 30px !important;
+  }
+
+  .logout-icon-btn {
+    width: 35px;
+    height: 35px;
     font-size: 1rem;
+    border-radius: 10px;
+  }
+  
+  /* Делаем отступы в контейнере меньше для телефонов */
+  .content-container {
+    padding-top: 1rem !important;
   }
 }

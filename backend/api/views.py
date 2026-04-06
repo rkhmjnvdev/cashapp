@@ -3,7 +3,7 @@ from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
 from rest_framework import status
 from .models import Debtor, Debt
-from .serializers import DebtorSerializer, DebtSerializer # Проверь оба импорта!
+from .serializers import DebtorSerializer, DebtSerializer
 from rest_framework import generics
 
 class DebtorSearchAPIView(ListAPIView):
@@ -18,33 +18,36 @@ class DebtorSearchAPIView(ListAPIView):
 class AddDebtView(APIView):
     def post(self, request):
         try:
-            # Получаем данные из запроса
+            # 1. Извлекаем данные из запроса (Добавили reason!)
             name = request.data.get('name')
             amount = request.data.get('amount')
             currency = request.data.get('currency')
             date = request.data.get('date')
+            reason = request.data.get('reason') # Теперь причина не будет null
 
-            # Проверка на пустые поля
+            # 2. Проверка на пустые поля
             if not all([name, amount, date]):
-                return Response({"error": "Заполните все поля!"}, status=status.HTTP_400_BAD_REQUEST)
+                return Response({"error": "Заполните обязательные поля (имя, сумма, дата)!"}, status=status.HTTP_400_BAD_REQUEST)
 
-            # Логика сохранения
+            # 3. Логика сохранения
             debtor, created = Debtor.objects.get_or_create(name=name)
             
+            # Создаем запись долга с указанием причины
             Debt.objects.create(
                 debtor=debtor,
                 amount=amount,
                 currency=currency if currency else 'UZS',
-                date=date
+                date=date,
+                reason=reason # Данные записываются в базу
             )
             
             return Response({"status": "success", "message": "Долг добавлен"}, status=status.HTTP_201_CREATED)
         
         except Exception as e:
-            # Это напечатает точную ошибку в терминал Django
-            print(f"ОШИБКА ТУТ: {e}") 
+            # Печать ошибки в консоль сервера для отладки
+            print(f"ОШИБКА СОХРАНЕНИЯ: {e}") 
             return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-        # Добавь это в api/views.py
+
 class AllDebtorsAPIView(generics.ListAPIView):
     queryset = Debtor.objects.all()
     serializer_class = DebtorSerializer
