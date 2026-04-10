@@ -193,7 +193,7 @@ function App() {
         </div>
 
         {/* ПОИСК */}
-        <div className="row mb-5">
+        <div className="row mb-5 justify-content-center">
           <div className="col-md-6 mx-auto">
             <div className="input-group shadow-sm">
               <input type="text" className="form-control" placeholder="Поиск по имени..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
