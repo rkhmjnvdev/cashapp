@@ -34,7 +34,7 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
   width: 100%;
-  padding-bottom: 40px;
+  padding-bottom: 20px; /* Reduced bottom padding */
 }
 
 /* ==================== ANIMATIONS ==================== */
@@ -115,7 +115,7 @@ h2 {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  font-size: 1.75rem !important;
+  font-size: 1.5rem !important; /* Slightly smaller base */
   font-weight: 800 !important;
   margin-bottom: 1.5rem !important;
   text-align: center;
@@ -129,8 +129,8 @@ h2 {
 h3 {
   color: var(--text-primary);
   font-weight: 700;
-  margin-bottom: 1.25rem !important;
-  font-size: 1.25rem;
+  margin-bottom: 1rem !important;
+  font-size: 1.1rem;
 }
 
 /* ==================== CARDS ==================== */
@@ -142,7 +142,7 @@ h3 {
   overflow: hidden;
   height: 100%;
   box-shadow: var(--shadow-sm);
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 @media (hover: hover) {
@@ -156,30 +156,32 @@ h3 {
   background: linear-gradient(to bottom right, var(--green-light), var(--green-dark)) !important;
   border: none !important;
   font-weight: 700 !important;
-  padding: 1rem !important;
+  padding: 0.9rem 1rem !important; /* Tighter padding */
   color: white !important;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
+  font-size: 0.95rem; /* Smaller header text */
   box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
 }
 
 .card-body {
-  padding: 1.25rem !important;
+  padding: 1rem !important; /* Tighter body */
 }
 
 @media (min-width: 768px) {
   .card-body { padding: 2rem !important; }
+  .card-header { padding: 1rem !important; font-size: 1rem; }
 }
 
 /* ==================== FORMS ==================== */
 .form-label {
   color: var(--text-secondary) !important;
   font-weight: 600;
-  font-size: 0.75rem !important;
+  font-size: 0.7rem !important; /* Smaller label */
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  margin-bottom: 0.5rem !important;
+  margin-bottom: 0.4rem !important;
   display: block;
 }
 
@@ -187,30 +189,30 @@ h3 {
 .form-select {
   background: #ffffff !important;
   border: 1px solid #d1d5db !important;
-  border-radius: 10px !important;
-  padding: 0.75rem 1rem !important;
-  font-size: 1rem;
+  border-radius: 8px !important; /* Slightly smaller radius */
+  padding: 0.6rem 0.8rem !important; /* Reduced padding */
+  font-size: 0.9rem !important; /* Smaller font */
   transition: all 0.2s ease;
   width: 100%;
   color: var(--text-primary) !important;
-  min-height: 44px;
+  min-height: 40px; /* Smaller touch target */
   box-shadow: var(--shadow-inner); 
 }
 
 .form-control:focus,
 .form-select:focus {
   border-color: var(--green-dark) !important;
-  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.15), var(--shadow-sm);
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15), var(--shadow-sm);
   outline: none;
-  transform: scale(1.01);
+  transform: scale(1.005);
 }
 
 /* ==================== INPUT GROUP ==================== */
 .input-group {
   display: flex;
-  border-radius: 10px !important;
+  border-radius: 8px !important;
   overflow: hidden;
-  margin-bottom: 1rem;
+  margin-bottom: 0.8rem !important;
   border: 1px solid #d1d5db;
   box-shadow: var(--shadow-inner);
   transition: box-shadow 0.2s ease;
@@ -218,43 +220,46 @@ h3 {
 
 .input-group:focus-within {
   border-color: var(--green-dark);
-  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.15);
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
 }
 
 .input-group .form-control {
   border: none !important;
   box-shadow: none !important;
   flex: 1;
-  min-height: 44px;
+  min-height: 40px;
+  font-size: 0.9rem !important;
 }
 
 .input-group .form-select {
   border: none !important;
   border-left: 1px solid #e5e7eb !important;
   width: auto !important;
-  min-width: 85px !important;
-  max-width: 100px;
+  min-width: 75px !important; /* Tighter width */
+  max-width: 90px;
   background: #f9fafb !important;
   border-radius: 0 !important;
-  min-height: 44px;
+  min-height: 40px;
   box-shadow: none !important;
+  font-size: 0.85rem !important;
+  padding: 0 0.5rem !important;
 }
 
 /* ==================== BUTTONS ==================== */
 .btn {
   font-weight: 700 !important;
-  border-radius: 10px !important;
-  padding: 0.85rem 1.5rem !important;
+  border-radius: 8px !important;
+  padding: 0.7rem 1.2rem !important; /* Reduced vertical padding */
   transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s ease;
   border: none !important;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 6px;
   width: 100%;
-  min-height: 50px;
-  font-size: 1rem;
+  min-height: 44px; /* Keep touch target reasonable */
+  font-size: 0.9rem !important; /* Smaller button text */
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -282,14 +287,14 @@ h3 {
 
 /* ==================== ALERTS ==================== */
 .alert {
-  border-radius: 12px !important;
-  padding: 1rem !important;
+  border-radius: 10px !important;
+  padding: 0.8rem !important;
   margin-bottom: 1rem !important;
   border: 1px solid transparent;
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-size: 0.9rem;
+  gap: 8px;
+  font-size: 0.8rem !important;
   box-shadow: var(--shadow-sm);
 }
 
@@ -299,7 +304,7 @@ h3 {
   color: #1e40af !important;
 }
 
-/* ==================== TABLE & LIST ITEMS (FIXED) ==================== */
+/* ==================== TABLE & LIST ITEMS (MINIMIZED MOBILE) ==================== */
 .debt-table-wrapper {
   overflow-x: auto;
   border-radius: 12px;
@@ -334,61 +339,57 @@ h3 {
   background-color: #f9fafb;
 }
 
-/* --- DEBT ITEM FIX (The main issue from the screenshot) --- */
+/* --- STANDARD DESKTOP/TABLET ITEM --- */
 .debt-item {
   display: flex;
-  align-items: center; /* Vertically center everything */
+  align-items: center; 
   justify-content: space-between;
-  gap: 10px; /* Space between text and amount */
-  padding: 0.8rem 1rem; /* Comfortable padding */
+  gap: 10px;
+  padding: 0.8rem 1rem;
   background: linear-gradient(to bottom right, #F8FAFC, #eee);
   border-radius: 0.5rem;
   border: 1px solid #10b981;
   transition: all 0.2s ease;
-  min-height: 54px; /* Ensure consistent height */
+  min-height: 50px; 
 }
 
-/* The left container (Date + Name/Details) */
 .debt-item > div:first-child {
   display: flex;
   flex-direction: column;
-  gap: 4px; /* Space between date and name */
-  flex: 1; /* Take all available space */
-  min-width: 0; /* Crucial: allows text truncation to work */
-  margin-right: auto; /* Push amount to the right */
-  overflow: hidden; /* Hide overflow */
+  gap: 2px; 
+  flex: 1; 
+  min-width: 0; 
+  margin-right: auto; 
+  overflow: hidden; 
 }
 
 .debt-date {
   font-size: 0.75rem;
-  color: #6b7280; /* Muted color for date */
+  color: #6b7280; 
   white-space: nowrap;
 }
 
-/* Handling the Name/Text inside the item */
 .debt-item span, 
 .debt-item div:not(.debt-amount):not(.debt-date) {
-  font-weight: 700;
-  font-size: 0.95rem;
+  font-weight: 600;
+  font-size: 0.9rem;
   color: #1f2937;
   white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis; /* Add "..." for long names like "Шаран + Трафтор" */
+  text-overflow: ellipsis; 
   display: block;
 }
 
-/* The right container (Amount + Actions) */
-.debt-item > div:last-child,
-.debt-item .d-flex.align-items-center:last-child {
+.debt-item > div:last-child {
   display: flex;
   align-items: center;
-  flex-shrink: 0; /* Prevent amount from shrinking */
+  flex-shrink: 0; 
   margin-left: 10px;
 }
 
 .debt-amount {
   font-weight: 800;
-  font-size: 1.05rem;
+  font-size: 1rem;
   background: linear-gradient(to right, grey, #333333);
   background-clip: text;
   -webkit-background-clip: text;
@@ -400,12 +401,12 @@ h3 {
 .debtor-cell {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
 .debtor-avatar {
-  width: 42px;
-  height: 42px;
+  width: 36px; /* Smaller avatar */
+  height: 36px;
   border-radius: 50%;
   background: linear-gradient(135deg, var(--green-light), var(--green-dark));
   color: white;
@@ -413,7 +414,7 @@ h3 {
   align-items: center;
   justify-content: center;
   font-weight: 800;
-  font-size: 1rem;
+  font-size: 0.85rem;
   flex-shrink: 0;
   box-shadow: 0 2px 5px rgba(16, 185, 129, 0.3);
 }
@@ -432,7 +433,7 @@ h3 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 20px;
+  padding: 10px 15px; /* Reduced padding */
   background: linear-gradient(to bottom right, var(--green-light), var(--green-dark)) !important;
   position: sticky;
   top: 0;
@@ -445,7 +446,7 @@ h3 {
 .nav-center {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   position: relative; 
   transform: none;
   left: auto;
@@ -453,7 +454,7 @@ h3 {
 
 .cashapp-logo {
   font-weight: 800;
-  font-size: 1.5rem;
+  font-size: 1.3rem; /* Slightly smaller */
   color: white;
   line-height: 1;
   white-space: nowrap;
@@ -461,7 +462,7 @@ h3 {
 }
 
 .head-logo {
-  height: 35px;
+  height: 28px; /* Smaller logo */
   width: auto;
   display: block;
   filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
@@ -471,8 +472,8 @@ h3 {
   background: rgba(255, 255, 255, 0.2);
   border: 1px solid rgba(255, 255, 255, 0.4);
   color: white;
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   border-radius: 8px;
   display: flex;
   align-items: center;
@@ -488,25 +489,36 @@ h3 {
   transform: rotate(90deg);
 }
 
-.logout-icon-btn:active {
-  transform: rotate(90deg) scale(0.9);
-}
-
-/* ==================== MOBILE SPECIFIC OVERRIDES ==================== */
+/* ==================== MOBILE MINIMIZED VIEW (The Fix) ==================== */
 @media (max-width: 480px) {
+  
+  /* Header minimalization */
   .custom-navbar {
-    padding: 10px 15px;
+    padding: 8px 15px;
   }
 
   .cashapp-logo {
-    font-size: 1.2rem;
+    font-size: 1.1rem; 
   }
   
   .head-logo {
-    height: 28px;
+    height: 24px;
     margin-right: 5px;
   }
 
+  .logout-icon-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 0.9rem;
+  }
+
+  /* Container minimalization */
+  .container {
+    padding: 0.5rem 0.8rem !important; /* Very tight margins */
+    margin-top: 0.5rem !important;
+  }
+
+  /* Card Transformation */
   .debt-table-wrapper {
     border: none;
     background: transparent;
@@ -527,14 +539,15 @@ h3 {
     width: 100%;
   }
 
+  /* The "Card" Row */
   .debt-table tr {
     background: white;
     border: 1px solid #e5e7eb;
-    border-radius: 12px;
-    padding: 1rem;
-    margin-bottom: 1rem;
-    box-shadow: var(--shadow-md); 
-    transition: transform 0.2s ease;
+    border-radius: 10px;
+    padding: 0.7rem 0.8rem !important; /* TIGHT PADDING */
+    margin-bottom: 0.6rem !important; /* Tight spacing between cards */
+    box-shadow: var(--shadow-sm); 
+    transition: transform 0.1s ease;
   }
   
   .debt-table tr:active {
@@ -542,49 +555,75 @@ h3 {
   }
 
   .debt-table td {
-    padding: 0.5rem 0;
+    padding: 0;
     text-align: left;
-    border-bottom: 1px solid #f3f4f6;
-  }
-  
-  .debt-table td:last-child {
     border-bottom: none;
-    padding-top: 0.75rem;
   }
   
+  /* User Info Section */
   .debt-table td:first-child {
-    padding-bottom: 0.75rem;
-    border-bottom: 1px solid #eee;
-    margin-bottom: 0.75rem;
-  }
-  
-  .debt-item {
-    flex-direction: row !important; /* Keep row layout inside mobile card */
-    align-items: center;
-    background: transparent; /* Cleaner look */
-    border: none;
-    padding: 0.5rem 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #f0f0f0;
     margin-bottom: 0.5rem;
-    min-height: auto;
+  }
+
+  .debtor-avatar {
+    width: 30px; /* Much smaller avatar */
+    height: 30px;
+    font-size: 0.75rem;
+  }
+
+  .debtor-name {
+    font-size: 0.9rem !important; /* Smaller name */
   }
   
+  /* Transaction List Items */
+  .debt-item {
+    flex-direction: row !important; 
+    align-items: center;
+    background: transparent !important; 
+    border: none !important;
+    padding: 0.3rem 0 !important; /* MINIMAL PADDING INSIDE ITEM */
+    margin-bottom: 0.3rem !important; /* Small gap between items */
+    min-height: auto;
+    gap: 8px;
+  }
+
   .debt-item > div:first-child {
-    flex: 1;
-    min-width: 0;
+    gap: 1px; /* Tiny gap between date and name */
   }
 
+  .debt-date {
+    font-size: 0.7rem !important; /* Very tiny date */
+    color: #9ca3af;
+  }
+
+  /* Merchant Name */
+  .debt-item span, 
+  .debt-item div:not(.debt-amount):not(.debt-date) {
+    font-size: 0.85rem !important; /* SMALL TEXT MATCHING PHOTO */
+    font-weight: 500; /* Slightly lighter weight */
+    line-height: 1.2;
+  }
+
+  /* Amount */
   .debt-amount {
+    font-size: 0.9rem !important; /* Compact amount */
     align-self: center;
-    font-size: 1.1rem;
+    font-weight: 700;
   }
 
+  /* Buttons in Form */
   .btn {
-    font-size: 1rem;
+    font-size: 0.9rem;
+    padding: 0.6rem 1rem !important;
+    min-height: 42px;
   }
 }
 
 @media (max-width: 360px) {
   .head-logo { display: none; }
-  .cashapp-logo { font-size: 1.1rem; }
-  .btn { font-size: 0.9rem; padding: 0.75rem 1rem; }
+  .cashapp-logo { font-size: 1rem; }
+  .debtor-name { font-size: 0.85rem !important; }
+  .debt-amount { font-size: 0.85rem !important; }
 }
