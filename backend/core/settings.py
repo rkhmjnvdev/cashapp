@@ -132,7 +132,7 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOWED_ORIGINS = [
-    "https://cashapp-woad.vercel.app", # Стандартный порт Vite
+    "https://yourcash-app.vercel.app", # Стандартный порт Vite
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
