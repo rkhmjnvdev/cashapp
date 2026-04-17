@@ -627,3 +627,69 @@ h3 {
   .debtor-name { font-size: 0.85rem !important; }
   .debt-amount { font-size: 0.85rem !important; }
 }
+/* Контейнер карточки поиска */
+.search-result-card {
+    max-width: 1000px;
+}
+
+/* Шапка поиска: На ПК в ряд, на мобилках в столбик */
+.search-result-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+.search-result-badges {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* Список долгов */
+.search-debts-list {
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 5px;
+}
+
+/* Элемент списка: На ПК в ряд, на мобилках в столбик */
+.search-debt-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.debt-info {
+    display: flex;
+    flex-direction: column;
+    min-width: 0; /* Важно для обрезки текста */
+}
+
+.reason-text {
+    max-width: 500px;
+}
+
+/* MEDIA QUERIES для мобильных устройств */
+@media (max-width: 576px) {
+    .search-result-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .search-debt-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+
+    .debt-amount-val {
+        align-self: flex-end; /* Сумма прижмется вправо на мобилке для красоты */
+        font-size: 1.1rem;
+    }
+
+    .reason-text {
+        max-width: 100%;
+        white-space: normal; /* На мобилке пусть текст переносится, если длинный */
+    }
+}

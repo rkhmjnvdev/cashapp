@@ -57,7 +57,6 @@ function App() {
 
   const fetchAllData = async () => {
     try {
-      // Путь /api/all/ для получения всех данных
       const response = await fetch(`${API_URL}/api/all/`);
       if (response.ok) {
         const data = await response.json();
@@ -117,7 +116,10 @@ function App() {
     }
   };
 
-  // --- ЭКРАН ВХОДА ---
+  // --- 4. РАСЧЕТ ОБЩИХ СУММ ---
+  const grandTotalUZS = allDebtors.reduce((total, person) => total + calculateTotal(person.debts, 'UZS'), 0);
+  const grandTotalUSD = allDebtors.reduce((total, person) => total + calculateTotal(person.debts, 'USD'), 0);
+
   if (!isAuthenticated) {
     return (
       <div className="login-wrapper d-flex align-items-center justify-content-center">
@@ -157,7 +159,7 @@ function App() {
       </header>
 
       <div className="container-fluid py-5 content-container">
-        {/* ФОРМА ДОБАВЛЕНИЯ */}
+        {/* ФОРМА */}
         <div className="card shadow-sm border-success mb-5 mx-auto" style={{maxWidth: '1000px'}}>
           <div className="card-header bg-success text-white fw-bold">Новая запись</div>
           <div className="card-body p-4">
@@ -193,7 +195,7 @@ function App() {
         </div>
 
         {/* ПОИСК */}
-        <div className="row mb-5 justify-content-center">
+        <div className="row mb-5 justify-content-center px-3">
           <div className="col-md-6 mx-auto">
             <div className="input-group shadow-sm">
               <input type="text" className="form-control" placeholder="Поиск по имени..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
@@ -202,10 +204,10 @@ function App() {
           </div>
         </div>
 
-        {/* РЕЗУЛЬТАТЫ ПОИСКА */}
+        {/* РЕЗУЛЬТАТЫ ПОИСКА (АДАПТИРОВАНО) */}
         {searchResult && searchResult !== "not_found" && (
           <div className="alert alert-info border-primary mb-5 shadow-sm mx-auto" style={{maxWidth: '1000px'}}>
-            <div className="d-flex justify-content-between align-items-center">
+            <div className="search-header-flex d-flex flex-wrap justify-content-between align-items-center gap-3">
               <h4 className="fw-bold m-0">История: {searchResult.name}</h4>
               <div className="d-flex gap-2">
                  {calculateTotal(searchResult.debts, 'UZS') > 0 && <span className="badge bg-success">{calculateTotal(searchResult.debts, 'UZS').toLocaleString()} UZS</span>}
@@ -213,65 +215,59 @@ function App() {
               </div>
             </div>
             <hr />
-            {searchResult.debts.map((d, i) => (
-              <div key={i} className="d-flex justify-content-between border-bottom py-2">
-                <div>
-                  <span className="fw-bold text-dark">{formatDate(d.date)}</span>
-                  <div className="small text-muted">{d.reason || "Без причины"}</div>
+            <div style={{maxHeight: '400px', overflowY: 'auto', paddingRight: '10px'}}>
+                {searchResult.debts.map((d, i) => (
+                <div key={i} className="search-row-flex d-flex flex-wrap justify-content-between border-bottom py-2 gap-2">
+                    <div style={{minWidth: '150px'}}>
+                      <span className="fw-bold text-dark small d-block">{formatDate(d.date)}</span>
+                      <div className="small text-muted text-truncate" style={{maxWidth: '300px'}} title={d.reason}>{d.reason || "Без причины"}</div>
+                    </div>
+                    <span className="fw-bold text-primary align-self-center ms-auto">
+                        {Number(d.amount).toLocaleString()} {d.currency}
+                    </span>
                 </div>
-                <span className="fw-bold text-primary">{Number(d.amount)} {d.currency}</span>
-              </div>
-            ))}
+                ))}
+            </div>
           </div>
         )}
 
-        {/* ОСНОВНАЯ ТАБЛИЦА */}
+        {/* ТАБЛИЦА */}
         <div className="debt-table-container mx-auto" style={{maxWidth: '1100px'}}>
           <h3 className="debt-table-title text-center mb-4">Общий список в базе</h3>
-          <div className="debt-table-wrapper shadow-sm rounded bg-white">
+          <div className="debt-table-wrapper shadow-sm rounded bg-white overflow-auto">
             <table className="debt-table w-100">
               <thead>
                 <tr>
-                  <th style={{width: '33%'}}>Имя должника</th>
-                  <th style={{width: '67%'}}>
-                    <div className="d-flex justify-content-between px-3">
-                      <span>Дата</span>
-                      <span>Причина</span>
-                      <span className="pe-4">Сумма</span>
-                    </div>
-                  </th>
+                  <th className="px-3">Имя должника</th>
+                  <th className="px-3 text-end">Детали долгов</th>
                 </tr>
               </thead>
               <tbody>
                 {allDebtors.map((person) => (
                   <tr key={person.id}>
                     <td className="align-middle">
-                      <div className="debtor-cell px-3">
+                      <div className="debtor-cell px-3 py-3">
                         <div className="debtor-avatar">{person.name.charAt(0).toUpperCase()}</div>
                         <div className="d-flex flex-column">
-                          <span className="debtor-name">{person.name}</span>
-                          <div className="debtor-summary mt-2">
+                          <span className="debtor-name fw-bold">{person.name}</span>
+                          <div className="debtor-summary mt-1">
                             {calculateTotal(person.debts, 'UZS') > 0 && (
-                              <div className="total-badge total-uzs" style={{fontSize: '0.7rem', color: '#10b981'}}>
-                                <b>Итого:</b> {calculateTotal(person.debts, 'UZS').toLocaleString()} UZS
-                              </div>
+                              <div className="small text-success"><b>Всего:</b> {calculateTotal(person.debts, 'UZS').toLocaleString()} UZS</div>
                             )}
                             {calculateTotal(person.debts, 'USD') > 0 && (
-                              <div className="total-badge total-usd" style={{fontSize: '0.7rem', color: '#667eea'}}>
-                                <b>Итого:</b> {calculateTotal(person.debts, 'USD').toLocaleString()} USD
-                              </div>
+                              <div className="small text-primary"><b>Всего:</b> {calculateTotal(person.debts, 'USD').toLocaleString()} USD</div>
                             )}
                           </div>
                         </div>
                       </div>
                     </td>
                     <td>
-                      <div className="debts-list">
+                      <div className="debts-list px-3">
                         {person.debts.map((d, idx) => (
-                          <div key={idx} className="debt-item d-flex justify-content-between align-items-center border-bottom py-1 px-2">
-                            <span className="debt-date small">{formatDate(d.date)}</span>
-                            <span className="small text-muted text-truncate mx-2" style={{maxWidth: '200px'}}>{d.reason}</span>
-                            <span className="debt-amount fw-bold">{Number(d.amount)} {d.currency}</span>
+                          <div key={idx} className="d-flex justify-content-between align-items-center border-bottom py-2 gap-3">
+                            <span className="small text-muted" style={{minWidth: '85px'}}>{formatDate(d.date)}</span>
+                            <span className="small text-truncate flex-grow-1 text-center d-none d-sm-inline" style={{maxWidth: '150px'}}>{d.reason}</span>
+                            <span className="fw-bold text-nowrap">{Number(d.amount).toLocaleString()} {d.currency}</span>
                           </div>
                         ))}
                       </div>
@@ -282,9 +278,30 @@ function App() {
             </table>
           </div>
         </div>
+
+        {/* ИТОГОВЫЕ СУММЫ */}
+        {(grandTotalUZS > 0 || grandTotalUSD > 0) && (
+          <div className="mx-auto mt-5 p-4 bg-white rounded shadow-sm border text-center" style={{maxWidth: '1100px', marginBottom: '50px'}}>
+            <h4 className="mb-4 fw-bold text-muted">Итоговое состояние базы:</h4>
+            <div className="d-flex justify-content-center flex-wrap gap-4">
+              {grandTotalUZS > 0 && (
+                <div className="p-3 rounded shadow-sm" style={{ backgroundColor: '#f0fff4', border: '1px solid #10b981', minWidth: '220px' }}>
+                  <span className="d-block small text-muted fw-bold mb-1">Сумма в UZS</span>
+                  <h3 className="fw-bold m-0" style={{ color: '#10b981' }}>{grandTotalUZS.toLocaleString()}</h3>
+                </div>
+              )}
+              {grandTotalUSD > 0 && (
+                <div className="p-3 rounded shadow-sm" style={{ backgroundColor: '#f0f5ff', border: '1px solid #667eea', minWidth: '220px' }}>
+                  <span className="d-block small text-muted fw-bold mb-1">Сумма в USD</span>
+                  <h3 className="fw-bold m-0" style={{ color: '#667eea' }}>{grandTotalUSD.toLocaleString()}</h3>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
       </div>
 
-      <footer className="footer">
+      <footer className="footer mt-auto">
         <div className="footer-content text-center py-4">
           <div className="social-links mb-3">
             <a href="https://t.me/rakhimjanov07" target="_blank" rel="noreferrer" className="social-icon mx-3"><i className="fab fa-telegram-plane"></i></a>
