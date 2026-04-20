@@ -7,18 +7,17 @@ class Debtor(models.Model):
         return self.name
 
 class Debt(models.Model):
-    # Добавляем выбор валюты
     CURRENCY_CHOICES = [
         ('UZS', 'Сум'),
         ('USD', 'Доллар'),
     ]
     
+    # Оставляем только ОДНО поле связи с правильным related_name
     debtor = models.ForeignKey(Debtor, on_delete=models.CASCADE, related_name='debts')
     reason = models.TextField(blank=True, null=True, verbose_name="Причина")
     amount = models.DecimalField(max_digits=12, decimal_places=2)
-    currency = models.CharField(max_length=3, choices=CURRENCY_CHOICES, default='UZS') # Новое поле
+    currency = models.CharField(max_length=3, choices=CURRENCY_CHOICES, default='UZS')
     date = models.DateField()
-    debtor = models.ForeignKey(Debtor, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.amount} {self.currency} - {self.debtor.name}"

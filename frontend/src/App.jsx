@@ -17,7 +17,7 @@ function App() {
   const [searchTerm, setSearchTerm] = useState(''); 
   const [searchResult, setSearchResult] = useState(null); 
   const [loading, setLoading] = useState(false);
-
+console.log(allDebtors);
   const [formData, setFormData] = useState({
     name: '',
     reason: '',
@@ -42,13 +42,13 @@ function App() {
     setIsAuthenticated(false);
   };
 
-  const calculateTotal = (debts, currency) => {
-    const total = debts
-      .filter(d => d.currency === currency)
-      .reduce((sum, current) => sum + Number(current.amount), 0);
-    return Number(total); 
-  };
+const calculateTotal = (debts, currency) => {
+  if (!Array.isArray(debts)) return 0;
 
+  return debts
+    .filter(d => d.currency === currency)
+    .reduce((sum, current) => sum + Number(current.amount), 0);
+};
   const formatDate = (dateString) => {
     if (!dateString) return "";
     const [year, month, day] = dateString.split('-');
@@ -216,7 +216,7 @@ function App() {
             </div>
             <hr />
             <div style={{maxHeight: '400px', overflowY: 'auto', paddingRight: '10px'}}>
-                {searchResult.debts.map((d, i) => (
+                {(searchResult.debts || []).map((d, i) => (
                 <div key={i} className="search-row-flex d-flex flex-wrap justify-content-between border-bottom py-2 gap-2">
                     <div style={{minWidth: '150px'}}>
                       <span className="fw-bold text-dark small d-block">{formatDate(d.date)}</span>
@@ -263,7 +263,7 @@ function App() {
                     </td>
                     <td>
                       <div className="debts-list px-3">
-                        {person.debts.map((d, idx) => (
+                        {person.debts?.map((d, idx) => (
                           <div key={idx} className="d-flex justify-content-between align-items-center border-bottom py-2 gap-3">
                             <span className="small text-muted" style={{minWidth: '85px'}}>{formatDate(d.date)}</span>
                             <span className="small text-truncate flex-grow-1 text-center d-none d-sm-inline" style={{maxWidth: '150px'}}>{d.reason}</span>
@@ -314,5 +314,4 @@ function App() {
     </div>
   );
 }
-
 export default App;
