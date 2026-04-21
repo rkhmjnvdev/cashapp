@@ -4,6 +4,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import CashApp from '../public/tr-cashapp-logo.png';
 
+// ДОБАВЛЯЕМ ИМПОРТЫ ДЛЯ WORD
+import { Document, Packer, Paragraph, Table, TableRow, TableCell, WidthType, AlignmentType, HeadingLevel } from 'docx';
+import { saveAs } from 'file-saver';
+
 function App() {
   // --- 1. СОСТОЯНИЯ АВТОРИЗАЦИИ ---
   const [isAuthenticated, setIsAuthenticated] = useState(
@@ -17,7 +21,7 @@ function App() {
   const [searchTerm, setSearchTerm] = useState(''); 
   const [searchResult, setSearchResult] = useState(null); 
   const [loading, setLoading] = useState(false);
-console.log(allDebtors);
+
   const [formData, setFormData] = useState({
     name: '',
     reason: '',
@@ -27,6 +31,58 @@ console.log(allDebtors);
   });
 
   // --- 3. ФУНКЦИИ ЛОГИКИ ---
+  
+  // ФУНКЦИЯ ГЕНЕРАЦИИ WORD ДЛЯ CASHAPP
+  const generateWordReport = () => {
+    // Создаем заголовки таблицы
+    const tableRows = [
+      new TableRow({
+        children: [
+          new TableCell({ children: [new Paragraph({ text: "Имя", bold: true })] }),
+          new TableCell({ children: [new Paragraph({ text: "Дата", bold: true })] }),
+          new TableCell({ children: [new Paragraph({ text: "Причина", bold: true })] }),
+          new TableCell({ children: [new Paragraph({ text: "Сумма", bold: true })] }),
+          new TableCell({ children: [new Paragraph({ text: "Валюта", bold: true })] }),
+        ],
+      }),
+    ];
+
+    // Проходим по всем должникам и их долгам
+    allDebtors.forEach((person) => {
+      person.debts.forEach((debt) => {
+        tableRows.push(
+          new TableRow({
+            children: [
+              new TableCell({ children: [new Paragraph(person.name)] }),
+              new TableCell({ children: [new Paragraph(formatDate(debt.date))] }),
+              new TableCell({ children: [new Paragraph(debt.reason || "-")] }),
+              new TableCell({ children: [new Paragraph(Number(debt.amount).toLocaleString())] }),
+              new TableCell({ children: [new Paragraph(debt.currency)] }),
+            ],
+          })
+        );
+      });
+    });
+
+    const doc = new Document({
+      sections: [{
+        children: [
+          new Paragraph({ text: "ОТЧЕТ ПО ЗАДОЛЖЕННОСТЯМ CASHAPP", heading: HeadingLevel.HEADING_1, alignment: AlignmentType.CENTER }),
+          new Paragraph({ text: `Дата формирования: ${new Date().toLocaleDateString()}`, alignment: AlignmentType.RIGHT }),
+          new Paragraph({ text: "" }),
+          new Table({
+            width: { size: 100, type: WidthType.PERCENTAGE },
+            rows: tableRows,
+          }),
+        ],
+      }],
+    });
+
+    Packer.toBlob(doc).then((blob) => {
+      saveAs(blob, `CashApp_Report_${new Date().toLocaleDateString()}.docx`);
+    });
+  };
+
   const handleLogin = (e) => {
     e.preventDefault();
     if (passwordInput === APP_PASSWORD) {
@@ -42,13 +98,13 @@ console.log(allDebtors);
     setIsAuthenticated(false);
   };
 
-const calculateTotal = (debts, currency) => {
-  if (!Array.isArray(debts)) return 0;
+  const calculateTotal = (debts, currency) => {
+    if (!Array.isArray(debts)) return 0;
+    return debts
+      .filter(d => d.currency === currency)
+      .reduce((sum, current) => sum + Number(current.amount), 0);
+  };
 
-  return debts
-    .filter(d => d.currency === currency)
-    .reduce((sum, current) => sum + Number(current.amount), 0);
-};
   const formatDate = (dateString) => {
     if (!dateString) return "";
     const [year, month, day] = dateString.split('-');
@@ -105,9 +161,6 @@ const calculateTotal = (debts, currency) => {
         alert("Успешно записано в базу!");
         setFormData({ name: '', reason: '', amount: '', currency: 'UZS', date: '' }); 
         fetchAllData(); 
-        if (searchTerm && formData.name.toLowerCase().includes(searchTerm.toLowerCase())) {
-          handleSearch();
-        }
       } else {
         alert("Ошибка при сохранении");
       }
@@ -116,7 +169,6 @@ const calculateTotal = (debts, currency) => {
     }
   };
 
-  // --- 4. РАСЧЕТ ОБЩИХ СУММ ---
   const grandTotalUZS = allDebtors.reduce((total, person) => total + calculateTotal(person.debts, 'UZS'), 0);
   const grandTotalUSD = allDebtors.reduce((total, person) => total + calculateTotal(person.debts, 'USD'), 0);
 
@@ -204,7 +256,7 @@ const calculateTotal = (debts, currency) => {
           </div>
         </div>
 
-        {/* РЕЗУЛЬТАТЫ ПОИСКА (АДАПТИРОВАНО) */}
+        {/* РЕЗУЛЬТАТЫ ПОИСКА */}
         {searchResult && searchResult !== "not_found" && (
           <div className="alert alert-info border-primary mb-5 shadow-sm mx-auto" style={{maxWidth: '1000px'}}>
             <div className="search-header-flex d-flex flex-wrap justify-content-between align-items-center gap-3">
@@ -279,11 +331,11 @@ const calculateTotal = (debts, currency) => {
           </div>
         </div>
 
-        {/* ИТОГОВЫЕ СУММЫ */}
+        {/* ИТОГОВЫЕ СУММЫ И КНОПКА СКАЧИВАНИЯ */}
         {(grandTotalUZS > 0 || grandTotalUSD > 0) && (
           <div className="mx-auto mt-5 p-4 bg-white rounded shadow-sm border text-center" style={{maxWidth: '1100px', marginBottom: '50px'}}>
             <h4 className="mb-4 fw-bold text-muted">Итоговое состояние базы:</h4>
-            <div className="d-flex justify-content-center flex-wrap gap-4">
+            <div className="d-flex justify-content-center flex-wrap gap-4 mb-4">
               {grandTotalUZS > 0 && (
                 <div className="p-3 rounded shadow-sm" style={{ backgroundColor: '#f0fff4', border: '1px solid #10b981', minWidth: '220px' }}>
                   <span className="d-block small text-muted fw-bold mb-1">Сумма в UZS</span>
@@ -297,6 +349,15 @@ const calculateTotal = (debts, currency) => {
                 </div>
               )}
             </div>
+
+            {/* САМА КНОПКА */}
+            <button 
+              className="btn btn-lg shadow-sm px-5 py-3 fw-bold text-white" 
+              style={{ backgroundColor: '#2b5797', borderRadius: '50px' }}
+              onClick={generateWordReport}
+            >
+              <i className="fas fa-file-word me-2"></i> СКАЧАТЬ ВЕСЬ СПИСОК (WORD)
+            </button>
           </div>
         )}
       </div>
@@ -308,7 +369,7 @@ const calculateTotal = (debts, currency) => {
             <a href="https://github.com/rkhmjnvdev" target="_blank" rel="noreferrer" className="social-icon mx-3"><i className="fab fa-github"></i></a>
             <a href="https://instagram.com/rakhimjanovv07" target="_blank" rel="noreferrer" className="social-icon mx-3"><i className="fab fa-instagram"></i></a>
           </div>
-          <p className="made-by">Made by Jakhongir</p>
+          <p className="made-by">by nezzo</p>
         </div>
       </footer>
     </div>
